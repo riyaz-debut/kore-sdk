@@ -1,0 +1,261 @@
+openapi: 3.0.0
+definitions:
+  postPlaceHoldOnShares:
+    type: object
+    required:
+      - "securities_holder_id"
+      - "koresecurities_id"
+      - "number_of_shares"
+      - "ats_id"
+      - "reason_code"
+      - "ats_transaction_id"
+      - "last_updated_at"
+    properties:
+      last_updated_at:
+        type: "string"
+        example: "YYYY-MM-DD"
+      securities_holder_id:
+        type: "string"
+      koresecurities_id:
+        type: "string"
+      number_of_shares:
+        type: "number"
+      ats_id:
+        type: "string"
+      reason_code:
+        type: "string"
+      ats_transaction_id:
+        type: string
+
+  postReleaseHoldOnShares:
+    type: object
+    required:
+      - "securities_holder_id"
+      - "koresecurities_id"
+      - "number_of_shares"
+      - "ats_id"
+      - "reason_code"
+      - "ats_transaction_id"
+      - "last_updated_at"
+    properties:
+      last_updated_at:
+        type: "string"
+        example: "YYYY-MM-DD"
+      securities_holder_id:
+        type: "string"
+      koresecurities_id:
+        type: "string"
+      number_of_shares:
+        type: "number"
+      ats_id:
+        type: "string"
+      reason_code:
+        type: "string"
+      ats_transaction_id:
+        type: string
+
+  putHolding:
+    type: object
+    required:
+      - "last_updated_at"
+      - "securities_holder_id"
+      - "koresecurities_id"
+      - "number_of_shares"
+      - "reason_code"
+    properties:
+      last_updated_at:
+        type: "string"
+        example: "YYYY-MM-DD"
+      securities_holder_id:
+        type: "string"
+      koresecurities_id:
+        type: "string"
+      number_of_shares:
+        type: "number"
+      reason_code:
+        type: "string"
+
+  postPurchaseKoreSecurities:
+    type: object
+    required:
+      - source_system_id
+      - "company_id"
+      - "securities_holder_id"
+      - "koresecurities_id"
+      - "holding_amount"
+      - "average_price"
+      - "date_acquired"
+    properties:
+      source_system_id:
+        type: string
+      company_id:
+        type: "string"
+      securities_holder_id:
+        type: "string"
+      koresecurities_id:
+        type: "string"
+      certificate_number:
+        type: "string"
+      holding_amount:
+        type: "number"
+      average_price:
+        type: "number"
+      date_acquired:
+        type: "string"
+        example: "YYYY-MM-DD"
+
+  postTransferSecuritiesRequest:
+    type: object
+    required:
+      - "company_id"
+      - "koresecurities_id"
+      - "owner_id"
+      - "transferred_to_id"
+      - "total_securities"
+      - "effective_date"
+      - "transfer_authorization_transaction_id"
+      - "transfer_type"
+      - "transfer_requestor"
+    properties:
+      company_id:
+        type: "string"
+      koresecurities_id:
+        type: "string"
+      owner_id:
+        type: "string"
+      transferred_to_id:
+        type: "string"
+      transfer_authorization_transaction_id:
+        type: "string"
+      total_securities:
+        type: "number"
+      effective_date:
+        type: "string"
+        example: "YYYY-MM-DD"
+      transfer_type:
+        type: "string"
+        enum:
+          - "ATS trade"
+          - "Beneficial"
+      transfer_requestor:
+        type: "string"
+      transfer_approver:
+        type: "string"
+
+  putTransferSecuritiesRequest:
+    type: object
+    required:
+      - "transfer_request_id"
+      - "status"
+    properties:
+      transfer_request_id:
+        type: "string"
+      status:
+        type: "number"
+        min: 1
+        max: 2
+      reason:
+        type: object
+        properties:
+          reason_code:
+            type: "string"
+          reason_text:
+            type: "string"
+
+  getShareHoldersByComapny:
+    type: object
+    required:
+      - "requestor_id"
+      - "company_id"
+    properties:
+      company_id:
+        type: "string"
+      requestor_id:
+        type: "string"
+
+  getShareHoldersBySecuritiesID:
+    type: object
+    required:
+      - "requestor_id"
+      - "company_id"
+      - "koresecurities_id"
+    properties:
+      company_id:
+        type: "string"
+      requestor_id:
+        type: "string"
+      koresecurities_id:
+        type: "string"
+
+  getHoldingsIDBySecuritiesID:
+    type: object
+    required:
+      - "requestor_id"
+      - "company_id"
+      - "koresecurities_id"
+    properties:
+      company_id:
+        type: "string"
+      requestor_id:
+        type: "string"
+      koresecurities_id:
+        type: "string"
+
+  getTotalNumberOfSharesInHolding:
+    type: object
+    required:
+      - "requestor_id"
+      - "company_id"
+      - "koresecurities_id"
+      - "securities_holder_id"
+    properties:
+      company_id:
+        type: "string"
+      requestor_id:
+        type: "string"
+      koresecurities_id:
+        type: "string"
+      securities_holder_id:
+        type: "string"
+
+  getTradableHoldings:
+    type: object
+    required:
+      - "requestor_id"
+      - "securities_holder_id"
+    properties:
+      requestor_id:
+        type: "string"
+      securities_holder_id:
+        type: "string"
+
+  getShareholderSecuritiesHoldingExists:
+    type: object
+    required:
+      - "requestor_id"
+      - "koresecurities_id"
+      - "securities_holder_id"
+    properties:
+      requestor_id:
+        type: "string"
+      koresecurities_id:
+        type: "string"
+      securities_holder_id:
+        type: "string"
+
+  getShareholderHasAvailableShares:
+    type: object
+    required:
+      - "requestor_id"
+      - "koresecurities_id"
+      - "securities_holder_id"
+      - "number_of_shares"
+    properties:
+      number_of_shares:
+        type: "number"
+      requestor_id:
+        type: "string"
+      koresecurities_id:
+        type: "string"
+      securities_holder_id:
+        type: "string"

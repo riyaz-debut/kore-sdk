@@ -1,0 +1,69 @@
+{
+    "name": "korecontract",
+    "version": "1.0.0",
+    "description": "Korecontract Implemented in JS",
+    "engines": {
+        "node": ">=8",
+        "npm": ">=5"
+    },
+    "scripts": {
+        "lint": "eslint .",
+        "pretest": "npm run lint",
+        "test": "nyc mocha --recursive",
+        "start": "node ./bin/www"
+    },
+    "engineStrict": true,
+    "author": "Hyperledger",
+    "license": "Apache-2.0",
+    "dependencies": {
+        "@hapi/hapi": "^18.3.2",
+        "acorn": "^6.1.1",
+        "axios": "^0.21.1",
+        "cors": "^2.8.5",
+        "csvtojson": "^2.0.10",
+        "debug": "~2.6.9",
+        "dotenv": "^8.1.0",
+        "ejs": "^2.6.2",
+        "express": "~4.16.0",
+        "express-basic-auth": "^1.2.0",
+        "fabric-ca-client": "^2.2.11",
+        "fabric-network": "^2.2.11",
+        "http-errors": "~1.6.2",
+        "joi": "^17.4.0",
+        "moment": "^2.24.0",
+        "morgan": "~1.9.0",
+        "multer": "^1.4.2",
+        "pm2": "^5.1.0",
+        "request": "^2.88.0",
+        "shelljs": "^0.8.4",
+        "slugify": "^1.6.0",
+        "swagger-jsdoc": "^3.2.9",
+        "swagger-ui": "^3.48.0",
+        "swagger-ui-express": "^4.0.2",
+        "uuid": "^3.4.0"
+    },
+    "devDependencies": {
+        "chai": "^4.2.0",
+        "eslint": "^5.9.0",
+        "mocha": "^8.4.0",
+        "nyc": "^14.1.1",
+        "sinon": "^7.1.1",
+        "sinon-chai": "^3.3.0"
+    },
+    "nyc": {
+        "exclude": [
+            "coverage/**",
+            "test/**"
+        ],
+        "reporter": [
+            "text-summary",
+            "html"
+        ],
+        "all": true,
+        "check-coverage": true,
+        "statements": 100,
+        "branches": 100,
+        "functions": 100,
+        "lines": 100
+    }
+}

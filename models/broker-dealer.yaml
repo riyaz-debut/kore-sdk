@@ -1,0 +1,78 @@
+openapi: 3.0.0
+definitions:
+  postBrokerDealer:
+    type: object
+    required:
+      - broker_dealer_id
+      - source_system_id
+      - corporate_name
+      - registration_number
+      - registration_authority
+      - domicile
+      - status
+    properties:
+      status:
+        type: number
+      broker_dealer_id:
+        type: string
+      source_system_id:
+        type: string
+      corporate_name:
+        type: string
+      registration_number:
+        type: string
+      registration_authority:
+        type: string
+      domicile:
+        type: array
+        items:
+          type: object
+          required:
+            - country
+            - state
+          properties:
+            country:
+              type: string
+            state:
+              type: array
+              items:
+                type: string
+
+  getBrokerDealerByID:
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        type: string
+
+  putAssociateBrokerDealerWithCompany:
+    type: object
+    required:
+      - company_id
+      - data
+      - association_date
+    properties:
+      company_id:
+        type: string
+      data:
+        type: array
+        items:
+          type: string
+      association_date:
+        type: string
+        example: "YYYY-MM-DD"
+
+  putAssociateBrokerDealerWithSecurity:
+    type: object
+    required:
+      - company_id
+      - broker_dealer_id
+      - koresecurities_id
+    properties:
+      company_id:
+        type: string
+      broker_dealer_id:
+        type: string
+      koresecurities_id:
+        type: string

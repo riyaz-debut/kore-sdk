@@ -1,0 +1,665 @@
+openapi: 3.0.0
+definitions:
+  postSubscriptionAgreement:
+    type: object
+    required:
+      - company_id
+      - date
+      - agreement_text
+      - status
+    properties:
+      status:
+        type: number
+      company_id:
+        type: "string"
+      document_id:
+        type: "string"
+      date:
+        type: "string"
+      agreement_text:
+        type: "string"
+  postShareholderAgreement:
+    type: object
+    required:
+      - "company_id"
+      # - "document_id"
+      # - "transfer"
+      # - "beneficiaries"
+      # - "trading"
+      # - "voting"
+      # - "rights"
+      # - "financial_participation"
+      # - "notifications"
+      # - "exits"
+      # - "reports"
+      # - "disclosures"
+    properties:
+      company_id:
+        type: "string"
+        example: ""
+      document_id:
+        type: "string"
+        example: ""
+      transfer:
+        # required:
+        #   - "transfer_restriction"
+        #   - "transfer_restriction_unit"
+        #   - "transfer_restriction_start"
+        #   - "transfer_restriction_number"
+        properties:
+          transfer_restriction:
+            type: "boolean"
+            example: false
+          transfer_restriction_number:
+            type: "number"
+            example: 0
+          transfer_restriction_unit:
+            type: "number"
+            example: 0
+          transfer_restriction_start:
+            type: "string"
+            example: "YYYY-MM-DD"
+        type: "object"
+      beneficiaries:
+        type: "array"
+        items:
+          type: "object"
+          # required:
+          #   - beneficiary_id
+          #   - beneficiary_type
+          properties:
+            beneficiary_id:
+              type: "string"
+              example: ""
+            beneficiary_type:
+              type: "number"
+              example: 0
+      trading:
+        # required:
+        #   - "ats"
+        #   - "trading_restrictions"
+        properties:
+          ats:
+            type: "array"
+            items:
+              type: "object"
+              # required:
+              #   - ats_id
+              #   - ats_jurisdictions
+              properties:
+                ats_id:
+                  type: "string"
+                  example: 0
+                ats_jurisdictions:
+                  # required:
+                  #   - "country"
+                  #   - "state"
+                  properties:
+                    country:
+                      type: "string"
+                      example: "CA"
+                    state:
+                      type: "string"
+                      example: "FL"
+                  type: "object"
+          trading_restrictions:
+            # required:
+            #   - "trading_hold_period"
+            #   - "trading_frequency"
+            #   - "trading_quantity"
+            #   - "sale_to_jurisdictions"
+            properties:
+              trading_hold_period:
+                # required:
+                #   - "trading_hold_period_duration"
+                #   - "trading_hold_period_duration_unit"
+                #   - "trading_hold_period_start"
+                #   - "references"
+                properties:
+                  trading_hold_period_duration:
+                    type: "number"
+                    example: 0
+                  trading_hold_period_duration_unit:
+                    type: "number"
+                    example: 0
+                  trading_hold_period_start:
+                    type: "string"
+                    example: "YYYY-MM-DD"
+                  references:
+                    type: "array"
+                    items:
+                      type: "object"
+                      # required:
+                      #   - reference_id
+                      #   - reference_name
+                      #   - reference_clause
+                      properties:
+                        reference_id:
+                          type: "string"
+                          example: ""
+                        reference_name:
+                          type: "string"
+                          example: ""
+                        reference_clause:
+                          type: "string"
+                          example: ""
+                type: "object"
+              trading_frequency:
+                # required:
+                #   - "number_of_trades"
+                #   - "trade_frequency_every"
+                #   - "trade_frequency_unit"
+                properties:
+                  number_of_trades:
+                    type: "number"
+                    example: 0
+                  trade_frequency_every:
+                    type: "number"
+                    example: 0
+                  trade_frequency_unit:
+                    type: "number"
+                    example: 0
+                type: "object"
+              trading_quantity:
+                # required:
+                #   - "trading_quantity_basis"
+                #   - "maximum_number_of_securities_to_trade"
+                properties:
+                  trading_quantity_basis:
+                    type: "string"
+                  maximum_number_of_securities_to_trade:
+                    type: "number"
+                    example: 0
+                type: "object"
+              sale_to_jurisdictions:
+                type: "array"
+                items:
+                  type: "object"
+                  # required:
+                  #   - restriction_type
+                  #   - country
+                  #   - state
+                  properties:
+                    restriction_type:
+                      type: "string"
+                    country:
+                      type: "string"
+                      example: "CA"
+                    state:
+                      type: "string"
+                      example: "FL"
+            type: "object"
+        type: "object"
+      voting:
+        # required:
+        #   - "exists"
+        #   - "voting_basis"
+        #   - "voting_actions"
+        properties:
+          exists:
+            type: "boolean"
+            example: "false"
+          voting_basis:
+            # required:
+            #   - "voting_basis_name"
+            #   - "references"
+            properties:
+              voting_basis_name:
+                type: "string"
+                example: ""
+              references:
+                type: "array"
+                items:
+                  type: "object"
+                  # required:
+                  #   - reference_id
+                  #   - reference_name
+                  #   - reference_clause
+                  properties:
+                    reference_id:
+                      type: "string"
+                      example: ""
+                    reference_name:
+                      type: "string"
+                      example: ""
+                    reference_clause:
+                      type: "string"
+                      example: ""
+            type: "object"
+          voting_actions:
+            type: "array"
+            items:
+              type: "object"
+              # required:
+              #   - corporate_action
+              #   - references
+              properties:
+                corporate_action:
+                  type: "string"
+                references:
+                  type: "array"
+                  items:
+                    type: "object"
+                    # required:
+                    #   - reference_id
+                    #   - reference_name
+                    #   - reference_clause
+                    properties:
+                      reference_id:
+                        type: "string"
+                        example: ""
+                      reference_name:
+                        type: "string"
+                        example: ""
+                      reference_clause:
+                        type: "string"
+                        example: ""
+        type: "object"
+      rights:
+        # required:
+        #   - "right_of_first_refusal"
+        #   - "right_of_tag_along"
+        #   - "right_of_drag_along"
+        #   - "right_of_preemption"
+        #   - "offer_of_warrants"
+        properties:
+          right_of_first_refusal:
+            # required:
+            #   - "exists"
+            properties:
+              exists:
+                type: "boolean"
+                example: "false"
+            type: "object"
+          right_of_tag_along:
+            # required:
+            #   - "exists"
+            properties:
+              exists:
+                type: "boolean"
+                example: "false"
+            type: "object"
+          right_of_drag_along:
+            # required:
+            #   - "exists"
+            properties:
+              exists:
+                type: "boolean"
+                example: "false"
+            type: "object"
+          right_of_preemption:
+            # required:
+            #   - "exists"
+            properties:
+              exists:
+                type: "boolean"
+                example: "false"
+            type: "object"
+          offer_of_warrants:
+            # required:
+            #   - "exists"
+            properties:
+              exists:
+                type: "boolean"
+                example: "false"
+            type: "object"
+        type: "object"
+      financial_participation:
+        # required:
+        #   - "revenue_share"
+        #   - "dividends"
+        #   - "warrants"
+        #   - "preferreds"
+        properties:
+          revenue_share:
+            # required:
+            #   - "exists"
+            #   - "description"
+            #   - "references"
+            properties:
+              exists:
+                type: "boolean"
+                example: "false"
+              description:
+                type: "string"
+                example: ""
+              references:
+                type: "array"
+                items:
+                  type: "object"
+                  # required:
+                  #   - reference_id
+                  #   - reference_name
+                  #   - reference_clause
+                  properties:
+                    reference_id:
+                      type: "string"
+                      example: ""
+                    reference_name:
+                      type: "string"
+                      example: ""
+                    reference_clause:
+                      type: "string"
+                      example: ""
+            type: "object"
+          dividends:
+            # required:
+            #   - "exists"
+            #   - "description"
+            #   - "references"
+            properties:
+              exists:
+                type: "boolean"
+                example: "false"
+              description:
+                type: "string"
+                example: ""
+              references:
+                type: "array"
+                items:
+                  type: "object"
+                  # required:
+                  #   - reference_id
+                  #   - reference_name
+                  #   - reference_clause
+                  properties:
+                    reference_id:
+                      type: "string"
+                      example: ""
+                    reference_name:
+                      type: "string"
+                      example: ""
+                    reference_clause:
+                      type: "string"
+                      example: ""
+            type: "object"
+          warrants:
+            # required:
+            #   - "exists"
+            #   - "references"
+            properties:
+              exists:
+                type: "boolean"
+                example: "false"
+              references:
+                type: "array"
+                items:
+                  type: "object"
+                  # required:
+                  #   - reference_id
+                  #   - reference_name
+                  #   - reference_clause
+                  properties:
+                    reference_id:
+                      type: "string"
+                      example: ""
+                    reference_name:
+                      type: "string"
+                      example: ""
+                    reference_clause:
+                      type: "string"
+                      example: ""
+            type: "object"
+          preferreds:
+            # required:
+            #   - "exists"
+            #   - "description"
+            #   - "references"
+            properties:
+              exists:
+                type: "boolean"
+                example: "false"
+              description:
+                type: "string"
+                example: ""
+              references:
+                type: "array"
+                items:
+                  type: "object"
+                  # required:
+                  #   - reference_id
+                  #   - reference_name
+                  #   - reference_clause
+                  properties:
+                    reference_id:
+                      type: "string"
+                      example: ""
+                    reference_name:
+                      type: "string"
+                      example: ""
+                    reference_clause:
+                      type: "string"
+                      example: ""
+            type: "object"
+        type: "object"
+      notifications:
+        type: "array"
+        items:
+          type: "object"
+          # required:
+          #   - trigger
+          #   - notification_title
+          #   - notification_mandatory
+          #   - references
+          properties:
+            trigger:
+              type: "string"
+              example: ""
+            notification_title:
+              type: "string"
+              example: ""
+            notification_mandatory:
+              type: "boolean"
+              example: "false"
+            references:
+              type: "array"
+              items:
+                type: "object"
+                # required:
+                #   - reference_id
+                #   - reference_name
+                #   - reference_clause
+                properties:
+                  reference_id:
+                    type: "string"
+                    example: ""
+                  reference_name:
+                    type: "string"
+                    example: ""
+                  reference_clause:
+                    type: "string"
+                    example: ""
+      exits:
+        # required:
+        #   - "M&A"
+        #   - "bankruptcy"
+        #   - "RTO"
+        #   - "IPO"
+        properties:
+          M&A:
+            # required:
+            #   - "exists"
+            #   - "references"
+            properties:
+              exists:
+                type: "boolean"
+                example: "false"
+              references:
+                type: "array"
+                items:
+                  type: "object"
+                  # required:
+                  #   - reference_id
+                  #   - reference_name
+                  #   - reference_clause
+                  properties:
+                    reference_id:
+                      type: "string"
+                      example: ""
+                    reference_name:
+                      type: "string"
+                      example: ""
+                    reference_clause:
+                      type: "string"
+                      example: ""
+            type: "object"
+          bankruptcy:
+            # required:
+            #   - "exists"
+            #   - "references"
+            properties:
+              exists:
+                type: "boolean"
+                example: "false"
+              references:
+                type: "array"
+                items:
+                  type: "object"
+                  # required:
+                  #   - reference_id
+                  #   - reference_name
+                  #   - reference_clause
+                  properties:
+                    reference_id:
+                      type: "string"
+                      example: ""
+                    reference_name:
+                      type: "string"
+                      example: ""
+                    reference_clause:
+                      type: "string"
+                      example: ""
+            type: "object"
+          RTO:
+            # required:
+            #   - "exists"
+            #   - "references"
+            properties:
+              exists:
+                type: "boolean"
+                example: "false"
+              references:
+                type: "array"
+                items:
+                  type: "object"
+                  # required:
+                  #   - reference_id
+                  #   - reference_name
+                  #   - reference_clause
+                  properties:
+                    reference_id:
+                      type: "string"
+                      example: ""
+                    reference_name:
+                      type: "string"
+                      example: ""
+                    reference_clause:
+                      type: "string"
+                      example: ""
+            type: "object"
+          IPO:
+            # required:
+            #   - "exists"
+            #   - "references"
+            properties:
+              exists:
+                type: "boolean"
+                example: "false"
+              references:
+                type: "array"
+                items:
+                  type: "object"
+                  # required:
+                  #   - reference_id
+                  #   - reference_name
+                  #   - reference_clause
+                  properties:
+                    reference_id:
+                      type: "string"
+                      example: ""
+                    reference_name:
+                      type: "string"
+                      example: ""
+                    reference_clause:
+                      type: "string"
+                      example: ""
+            type: "object"
+        type: "object"
+      reports:
+        type: "array"
+        items:
+          type: "object"
+          # required:
+          #   - report_id
+          #   - report_title
+          #   - report_frequency
+          #   - report_consumers
+          properties:
+            report_id:
+              type: "string"
+              example: ""
+            report_title:
+              type: "string"
+              example: ""
+            report_frequency:
+              type: "string"
+              example: ""
+            report_consumers:
+              type: "array"
+              items:
+                type: "object"
+                # required:
+                #   - report_consumer_id
+                #   - report_consumer_name
+                #   - report_consumer_type
+                properties:
+                  report_consumer_id:
+                    type: "string"
+                    example: ""
+                  report_consumer_name:
+                    type: "string"
+                    example: ""
+                  report_consumer_type:
+                    type: "string"
+                    example: ""
+      disclosures:
+        type: "array"
+        items:
+          type: "object"
+          # required:
+          #   - disclosure_id
+          #   - disclosure_title
+          #   - disclosure_frequency
+          #   - disclosure_frequency_unit
+          #   - disclosure_recipients
+          properties:
+            disclosure_id:
+              type: "string"
+              example: ""
+            disclosure_title:
+              type: "string"
+              example: ""
+            disclosure_frequency:
+              type: "number"
+              example: 0
+            disclosure_frequency_unit:
+              type: "number"
+              example: 0
+            disclosure_recipients:
+              type: "array"
+              items:
+                type: "object"
+                # required:
+                #   - disclosure_recipient_id
+                #   - disclosure_recipient_name
+                #   - disclosure_recipient_type
+                properties:
+                  disclosure_recipient_id:
+                    type: "string"
+                    example: ""
+                  disclosure_recipient_name:
+                    type: "string"
+                    example: ""
+                  disclosure_recipient_type:
+                    type: "string"
+                    example: ""

@@ -1,0 +1,128 @@
+openapi: 3.0.1
+paths:
+  /main:
+    post:
+      summary: Invokes the Korechain Method or triggers the notifications
+      tags:
+        - Main
+      consumes:
+        - application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/definitions/Main"
+      responses:
+        "200":
+          description: Success Response
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#definitions/BadRequest"
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: "#definitions/InternalServerError"
+  /main/import-company:
+    post:
+      summary: Uploads a CSV file to import the Companies.
+      tags:
+        - Main
+      consumes:
+        - multipart/form-data
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Success Response
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#definitions/BadRequest"
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: "#definitions/InternalServerError"
+  /main/import-person:
+    post:
+      summary: Uploads a CSV file to import the Persons.
+      tags:
+        - Main
+      consumes:
+        - multipart/form-data
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Success Response
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#definitions/BadRequest"
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: "#definitions/InternalServerError"
+  /go:
+    post:
+      summary: Create a Go build
+      tags:
+        - Main
+      consumes:
+        - multipart/form-data
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Success Response
+        "400":
+          description: Bad Request
+          schema:
+            $ref: "#definitions/BadRequest"
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: "#definitions/InternalServerError"
+definitions:
+  Main:
+    type: object
+    properties:
+      KoreChainAPI:
+        type: object
+        properties:
+          API_payload:
+            type: object
+          API:
+            type: string
+      Notifications:
+        type: array
+        items:
+          type: object
+          properties:
+            Recipient:
+              type: string
+            token:
+              type: string
+            Notification_Payload:
+              type: object

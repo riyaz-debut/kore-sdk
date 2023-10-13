@@ -1,0 +1,192 @@
+openapi: 3.0.0
+definitions:
+  postDocument:
+    type: object
+    required:
+      - document_source_id
+      - document_hash
+      - entity_id
+      - hash_algorithm
+      - status
+    properties:
+      status:
+        type: number
+      document_source_id:
+        type: string
+      document_hash:
+        type: string
+      entity_id:
+        type: string
+      hash_algorithm:
+        type: string
+
+  postOfferingMemorandum:
+    type: object
+    required:
+      - company_id
+      - issuance_jurisdictions
+      - offering_detail
+      - status
+    properties:
+      status:
+        type: number
+      company_id:
+        type: string
+      document_id:
+        type: string
+      company_symbol:
+        type: string
+      public_reporting_company:
+        type: boolean
+      issuance_jurisdictions:
+        type: array
+        items:
+          type: object
+          required:
+            - country
+          properties:
+            country:
+              type: string
+            state:
+              type: string
+      exemptions:
+        type: array
+        items:
+          type: string
+      broker_dealers:
+        type: array
+        items:
+          type: string
+      offering_detail:
+        type: object
+        required:
+          - offering_type
+          - offering_currency
+          - offering_amount
+          - offering_securities_number
+          - offering_price_per_security
+          - offering_start_date
+        properties:
+          offering_type:
+            type: string
+            description: "1 ==> Offering, 2 ==> Non-offering, 3 ==> Tokenization, 4 ==> Tokenized Offering"
+            enum:
+              - 1
+              - 2
+              - 3
+              - 4
+          offering_currency:
+            type: string
+          offering_amount:
+            type: number
+          offering_securities_number:
+            type: number
+          offering_price_per_security:
+            type: number
+          offering_securities_class:
+            type: string
+          references:
+            type: array
+            items:
+              type: object
+              required:
+                - reference_id
+                - reference_name
+              properties:
+                reference_id:
+                  type: string
+                reference_name:
+                  type: string
+          offering_start_date:
+            type: string
+            example: "YYYY-MM-DD"
+          offering_end_date:
+            type: string
+            example: "YYYY-MM-DD"
+
+  postPaymentMethod:
+    type: object
+    required:
+      - transaction_date
+      - payment_type
+      - ip_address
+      - payer_id
+      - amount
+      - currency
+      - payment_method
+    properties:
+      transaction_date:
+        type: string
+        example: "YYYY-MM-DD"
+      payment_type:
+        type: string
+      ip_address:
+        type: string
+      payer_id:
+        type: string
+      amount:
+        type: string
+      currency:
+        type: string
+      payment_method:
+        type: string
+
+  postSecuritiesInstrument:
+    type: object
+    required:
+      - securities_type
+      - class_type
+      - name
+    properties:
+      securities_type:
+        type: string
+      name:
+        type: string
+      class_type:
+        type: string
+
+  postKorecontract:
+    type: object
+    properties:
+      id:
+        type: string
+      meta:
+        type: object
+        properties:
+          author:
+            type: string
+          category:
+            type: string
+          company:
+            type: string
+          contract_text:
+            type: string
+          date_created:
+            type: string
+          date_until:
+            type: string
+          description:
+            type: string
+          keywords:
+            type: array
+            items:
+              type: object
+              properties:
+                keyword:
+                  type: string
+          subcategory:
+            type: string
+          version:
+            type: string
+        required:
+          - author
+          - company
+          - date_created
+          - date_until
+          - version
+      rules:
+        type: string
+    required:
+      - id
+      - meta
+      - rules

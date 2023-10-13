@@ -1,0 +1,60 @@
+openapi: 3.0.0
+definitions:
+  postPerson:
+    type: object
+    required:
+      - pd
+      - verifications
+      - status
+    properties:
+      status:
+        type: number
+      pd:
+        type: string
+      source_id:
+        type: string
+      verifications:
+        type: object
+        description: Verification details
+        required:
+          - kyc_verification
+        properties:
+          kyc_verification:
+            type: object
+            schema:
+            $ref: "#definitions/IDVerification"
+
+  getPersonByID:
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        type: string
+
+  IDVerification:
+    type: object
+    required:
+      - provider_id
+      - profile_id
+      - verification_date
+      - tid
+      - overall_status
+      - kyc_report_hash
+    properties:
+      provider_id:
+        type: string
+      profile_id:
+        type: string
+      verification_date:
+        type: string
+        example: "YYYY-MM-DD"
+      verification_expiry_date:
+        type: string
+        example: "YYYY-MM-DD"
+      tid:
+        type: string
+      overall_status:
+        type: string
+      kyc_report_hash:
+        type: string

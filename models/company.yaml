@@ -1,0 +1,253 @@
+openapi: 3.0.0
+definitions:
+  postCompany:
+    type: object
+    properties:
+      cd:
+        type: string
+      company_id:
+        type: array
+        items:
+          type: object
+          properties:
+            registration_id:
+              type: string
+            registration_domicile:
+              type: string
+            registration_authority:
+              type: string
+            registration_record_url:
+              type: string
+          required:
+            - registration_id
+            - registration_domicile
+            - registration_authority
+      source:
+        type: object
+        properties:
+          source_system_id:
+            type: string
+          source_platform_id:
+            type: string
+        required:
+          - source_system_id
+          - source_platform_id
+      verifications:
+        type: array
+        items:
+          type: object
+          properties:
+            verification_type:
+              type: string
+            verifying_org:
+              type: string
+            verification_id:
+              type: string
+            verification_date:
+              type: string
+            verification_url:
+              type: string
+      other_references:
+        type: array
+        items:
+          type: object
+          properties:
+            other_reference_id:
+              type: string
+            other_platform_id:
+              type: string
+      status:
+        type: number
+    required:
+      - company_id
+      - source
+      - status
+  
+  putCompany:
+    type: object
+    properties:
+      cd:
+        type: string
+      company_id:
+        type: array
+        items:
+          type: object
+          properties:
+            registration_id:
+              type: string
+            registration_domicile:
+              type: string
+            registration_authority:
+              type: string
+            registration_record_url:
+              type: string
+          required:
+            - registration_id
+            - registration_domicile
+            - registration_authority
+      source:
+        type: object
+        properties:
+          source_system_id:
+            type: string
+          source_platform_id:
+            type: string
+        required:
+          - source_system_id
+          - source_platform_id
+      verifications:
+        type: array
+        items:
+          type: object
+          properties:
+            verification_type:
+              type: string
+            verifying_org:
+              type: string
+            verification_id:
+              type: string
+            verification_date:
+              type: string
+            verification_url:
+              type: string
+      other_references:
+        type: array
+        items:
+          type: object
+          properties:
+            other_reference_id:
+              type: string
+            other_platform_id:
+              type: string
+      id:
+        type: string
+    required:
+      - company_id
+      - source
+      - id
+    
+  # putCompanyBankruptcyProceedingStatus:
+  #   type: object
+  #   required:
+  #     - company_id
+  #     - status
+  #     - reference_details
+  #   properties:
+  #     company_id:
+  #       type: string
+  #     status:
+  #       type: boolean
+  #     reference_details:
+  #       type: array
+  #       items:
+  #         type: object
+  #         required:
+  #             - authorization_reference
+  #             - authorizing_entity_id
+  #         properties:
+  #           authorization_reference:
+  #             type: string
+  #           effective_start_date:
+  #             type: string
+  #             example: "YYYY-MM-DD"
+  #           effective_end_date:
+  #             type: string
+  #             example: "YYYY-MM-DD"
+  #           authorization_date:
+  #             type: string
+  #             example: "YYYY-MM-DD"
+  #           authorizing_entity_id:
+  #             type: string
+
+  # putAssociateNotificationURLWithCompany:
+  #   type: object
+  #   required:
+  #     - company_id
+  #     - url
+  #   properties:
+  #     company_id:
+  #       type: string
+  #     url:
+  #       type: string
+
+  getCompaniesByRequestorID:
+    type: object
+    required:
+      - requestor_id
+    properties:
+      requestor_id:
+        type: string
+
+  getCompanyByID:
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        type: string
+
+  # putCompanyRegulatoryInjunctionStatus:
+  #   type: object
+  #   required:
+  #     - company_id
+  #     - status
+  #     - reference_details
+  #   properties:
+  #     company_id:
+  #       type: string
+  #     status:
+  #       type: boolean
+  #     reference_details:
+  #       type: array
+  #       items:
+  #         type: object
+  #         required:
+  #             - authorization_reference
+  #             - authorizing_entity_id
+  #         properties:
+  #           authorization_reference:
+  #             type: string
+  #           effective_start_date:
+  #             type: string
+  #             example: "YYYY-MM-DD"
+  #           effective_end_date:
+  #             type: string
+  #             example: "YYYY-MM-DD"
+  #           authorization_date:
+  #             type: string
+  #             example: "YYYY-MM-DD"
+  #           authorizing_entity_id:
+  #             type: string
+
+  # putCompanyHoldByATSOperatorStatus:
+  #   type: object
+  #   required:
+  #     - company_id
+  #     - status
+  #     - reference_details
+  #   properties:
+  #     company_id:
+  #       type: string
+  #     status:
+  #       type: boolean
+  #     reference_details:
+  #       type: array
+  #       items:
+  #         type: object
+  #         required:
+  #             - authorization_reference
+  #             - authorizing_entity_id
+  #         properties:
+  #           authorization_reference:
+  #             type: string
+  #           effective_start_date:
+  #             type: string
+  #             example: "YYYY-MM-DD"
+  #           effective_end_date:
+  #             type: string
+  #             example: "YYYY-MM-DD"
+  #           authorization_date:
+  #             type: string
+  #             example: "YYYY-MM-DD"
+  #           authorizing_entity_id:
+  #             type: string

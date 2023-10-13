@@ -1,0 +1,41 @@
+openapi: 3.0.1
+definitions:
+  ValidationError:
+    type: object
+    properties:
+      message:
+        type: string
+        example: Please enter field value.
+        description: Error messgae
+      key:
+        type: string
+        example: field name
+        description: The field on which the validation error occured.
+  BadRequest:
+    type: object
+    properties:
+      message:
+        type: string
+        example: Internal server error occured.
+        description: The detailed error message.
+  ConflictRequest:
+    type: object
+    properties:
+      message:
+        type: string
+        example: Record already exists
+        description: The detailed error message.
+  NotFoundRequest:
+    type: object
+    properties:
+      message:
+        type: string
+        example: The resource does not found.
+        description: The detailed error message.
+  InternalServerError:
+    type: object
+    properties:
+      message:
+        type: string
+        description: Internal server error occuered.
+        example: Internal server error occuered.

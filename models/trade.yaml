@@ -1,0 +1,91 @@
+openapi: 3.0.0
+definitions:
+  postTradeRequest:
+    type: object
+    required:
+      - shareholder_id
+      - order_date
+      - direction
+      - company_id
+      - koresecurities_id
+      - number_to_trade
+      - trade_price
+    properties:
+      shareholder_id:
+        type: string
+      order_date:
+        type: string
+        example: "YYYY-MM-DD"
+      direction:
+        type: string
+      company_id:
+        type: string
+      koresecurities_id:
+        type: string
+      number_to_trade:
+        type: number
+      trade_price:
+        type: number
+      order_type:
+        type: string
+      limit:
+        type: number
+      stop:
+        type: number
+      order_duration:
+        type: string
+      order_expiry:
+        type: string
+        example: "YYYY-MM-DD"
+      misc:
+        type: string
+
+  getTradeRequests:
+    type: object
+    required:
+      - shareholder_id
+      - company_id
+      - requestor_id
+    properties:
+      shareholder_id:
+        type: string
+      company_id:
+        type: string
+      requestor_id:
+        type: string
+
+  postATSTrade:
+    type: object
+    required:
+      - company_id
+      - koresecurities_id
+      - requestor_id
+      - ats_transaction_id
+      - owner_id
+      - transferred_to_id
+      - transfer_authorization_transaction_id
+      - total_securities
+      - trade_price
+      - effective_date
+    properties:
+      company_id:
+        type: string
+      koresecurities_id:
+        type: string
+      requestor_id:
+        type: string
+      ats_transaction_id:
+        type: string
+      owner_id:
+        type: string
+      transferred_to_id:
+        type: string
+      transfer_authorization_transaction_id:
+        type: string
+      total_securities:
+        type: number
+      trade_price:
+        type: number
+      effective_date:
+        type: string
+        example: "YYYY-MM-DD"

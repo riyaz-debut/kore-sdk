@@ -1,0 +1,89 @@
+{
+    "name": "KoreChain-network",
+    "version": "1.0.0",
+    "client": {
+        "organization": "Koreconx",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "300"
+                },
+                "orderer": "300"
+            }
+        }
+    },
+    "channels": {
+        "korechain": {
+            "orderers": [
+                "orderer.koreconx.com"
+            ],
+            "peers": {
+                "peer0.koreconx.com": {
+                    "endorsingPeer": true,
+                    "chaincodeQuery": true,
+                    "ledgerQuery": true,
+                    "eventSource": true
+                }
+            }
+        }
+    },
+    "organizations": {
+        "Koreconx": {
+            "mspid": "KoreconxMSP",
+            "peers": [
+                "peer0.koreconx.com"
+            ],
+            "certificateAuthorities": [
+                "ca.koreconx.com"
+            ],
+            "adminPrivateKey": {
+                "path": "../KoreChain-Dev/organizations/peerOrganizations/koreconx.com/users/Admin@koreconx.com/msp/keystore/priv_sk"
+            },
+            "signedCert": {
+                "path": "../KoreChain-Dev/organizations/peerOrganizations/koreconx.com/users/Admin@koreconx.com/msp/signcerts/Admin@koreconx.com-cert.pem"
+            }
+        }
+    },
+    "orderers": {
+        "orderer.koreconx.com": {
+            "url": "grpcs://localhost:7050",
+            "grpcOptions": {
+                "ssl-target-name-override": "orderer.koreconx.com",
+                "grpc.keepalive_timeout_ms": 15
+            },
+            "tlsCACerts": {
+                "path": "../KoreChain-Dev/organizations/ordererOrganizations/koreconx.com/orderers/orderer.koreconx.com/msp/tlscacerts/tlsca.koreconx.com-cert.pem"
+            }
+        }
+    },
+    "peers": {
+        "peer0.koreconx.com": {
+            "url": "grpcs://localhost:7051",
+            "tlsCACerts": {
+                "path": "../KoreChain-Dev/organizations/peerOrganizations/koreconx.com/tlsca/tlsca.koreconx.com-cert.pem"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer0.koreconx.com",
+                "grpc.keepalive_timeout_ms": 20000
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "ca.koreconx.com": {
+            "url": "https://localhost:7054",
+            "caName": "ca.koreconx.com",
+            "httpOptions": {
+                "verify": false
+            },
+            "tlsCACerts": {
+                "path": "../KoreChain-Dev/organizations/peerOrganizations/koreconx.com/ca/ca.koreconx.com-cert.pem"
+            },
+            "registrar": [
+                {
+                    "enrollId": "admin",
+                    "enrollSecret": "adminpw"
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,58 @@
+openapi: 3.0.0
+definitions:
+  postTransferAgent:
+    type: object
+    required:
+      - transfer_agent_id
+      - source_system_id
+      - corporate_name
+      - registration_number
+      - registration_authority
+      - domicile
+      - status
+    properties:
+      status:
+        type: number
+      transfer_agent_id:
+        type: string
+      source_system_id:
+        type: string
+      corporate_name:
+        type: string
+      registration_number:
+        type: string
+      registration_authority:
+        type: string
+      domicile:
+        type: array
+        items:
+          type: object
+          required:
+            - country
+            - state
+          properties:
+            country:
+              type: string
+            state:
+              type: array
+              items:
+                type: string
+
+  putAssociateTransferAgentWithCompany:
+    type: object
+    required:
+      - company_id
+      - transfer_agent_id
+    properties:
+      company_id:
+        type: string
+      transfer_agent_id:
+        type: string
+
+  getTransferAgentByID:
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        type: string

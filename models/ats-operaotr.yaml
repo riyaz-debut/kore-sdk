@@ -1,0 +1,93 @@
+openapi: 3.0.0
+definitions:
+  postATSOperator:
+    type: object
+    required:
+      - ats_operator_id
+      - source_system_id
+      - corporate_name
+      - corporate_id
+      - registration_number
+      - registration_authority
+      - type_of_license
+      - license_grant_type
+      - registration_date
+      - registration_expiry_date
+      - domicile
+      - status
+    properties:
+      status:
+        type: number
+      ats_operator_id:
+        type: string
+      source_system_id:
+        type: string
+      corporate_name:
+        type: string
+      registration_number:
+        type: string
+      registration_authority:
+        type: string
+      type_of_license:
+        type: string
+      license_grant_type:
+        type: string
+      registration_date:
+        type: string
+        example: "YYYY-MM-DD"
+      registration_expiry_date:
+        type: string
+        example: "YYYY-MM-DD"
+      domicile:
+        type: array
+        items:
+          type: object
+          required:
+            - country
+            - state
+          properties:
+            country:
+              type: string
+            state:
+              type: array
+              items:
+                type: string
+
+  putAssociateAtsOperatorWithSecurity:
+    type: object
+    required:
+      - company_id
+      - ats_operator_id
+      - koresecurities_id
+    properties:
+      company_id:
+        type: string
+      ats_operator_id:
+        type: string
+      koresecurities_id:
+        type: string
+
+  getATSOperatorByID:
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        type: string
+
+  putAssociateATSOperatorWithCompany:
+    type: object
+    required:
+      - company_id
+      - data
+      - association_date
+    properties:
+      company_id:
+        type: string
+      data:
+        type: array
+        items:
+          type: string
+      association_date:
+        type: string
+        example: "YYYY-MM-DD"

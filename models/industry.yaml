@@ -1,0 +1,21 @@
+openapi: 3.0.0
+definitions:
+  postIndustry:
+    type: object
+    required:
+      - title
+    properties:
+      title:
+        type: string
+      industry:
+        type: string
+      parent_id:
+        type: string
+
+  getIndustries:
+    type: object
+    required:
+      - industry_id
+    properties:
+      industry_id:
+        type: string

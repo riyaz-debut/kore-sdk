@@ -1,0 +1,58 @@
+# openapi: 3.0.0
+# definitions:
+#   getManagementPeopleByCompany:
+#     type: object
+#     required:
+#       - company_id
+#     properties:
+#       company_id:
+#         type: string
+
+#   postManagementToCompany:
+#     type: object
+#     required:
+#       - company_id
+#       - person_id
+#       - start_date
+#       - shareholder_vote_transaction_id
+#       - role
+#     properties:
+#       company_id:
+#         type: string
+#       person_id:
+#         type: string
+#       start_date:
+#         type: string
+#         example: "YYYY-MM-DD"
+#       shareholder_vote_transaction_id:
+#         type: string
+#       role:
+#         type: string
+#         in:
+#           - ceo
+#           - cfo
+#           - director
+#           - officer
+
+#   deleteManagementFromCompany:
+#     type: object
+#     required:
+#       - company_id
+#       - person_id
+#       - end_date
+#       - role
+#     properties:
+#       company_id:
+#         type: string
+#       person_id:
+#         type: string
+#       end_date:
+#         type: string
+#         example: "YYYY-MM-DD"
+#       role:
+#         type: string
+#         in:
+#           - ceo
+#           - cfo
+#           - director
+#           - officer

@@ -1,0 +1,135 @@
+openapi: 3.0.0
+definitions:
+  postIssueSecurities:
+    type: object
+    required:
+      - "company_id"
+      - "securities_type"
+      - status
+    properties:
+      status:
+        type: number
+      company_id:
+        type: "string"
+      offering_memorandum_id:
+        type: "string"
+      shareholder_agreement_id:
+        type: "string"
+      certificate_number:
+        type: "string"
+      securities_type:
+        type: "string"
+
+  getSecuritiesByCompanyID:
+    type: object
+    required:
+      - company_id
+    properties:
+      company_id:
+        type: string
+      requestor_id:
+        type: string
+
+  putSecurities:
+    type: object
+    required:
+      - "koresecurities_id"
+      - "available_securities"
+    properties:
+      koresecurities_id:
+        type: "string"
+      available_securities:
+        type: "number"
+
+  postCertificateText:
+    type: object
+    required:
+      - "koresecurities_id"
+      - "company_id"
+      - "certificate_text"
+    properties:
+      koresecurities_id:
+        type: "string"
+      company_id:
+        type: "string"
+      certificate_text:
+        type: "string"
+
+  getCertificateTextBySecuritiesID:
+    type: object
+    required:
+      - koresecurities_id
+    properties:
+      koresecurities_id:
+        type: string
+
+  postCertificate:
+    type: object
+    required:
+      - "company_id"
+      - "koresecurities_id"
+      - "koretransaction_id"
+      - "securities_holder_id"
+      - "certificate_number"
+      - "holding_amount"
+      - "average_price"
+      - "date_acquired"
+      - "status"
+    properties:
+      koretransaction_id:
+        type: string
+      company_id:
+        type: "string"
+      securities_holder_id:
+        type: "string"
+      koresecurities_id:
+        type: "string"
+      certificate_number:
+        type: "string"
+      holding_amount:
+        type: "number"
+      average_price:
+        type: "number"
+      date_acquired:
+        type: "string"
+        example: "YYYY-MM-DD"
+      status:
+        type: "string"
+
+  putCertificate:
+    type: object
+    required:
+      - "certificate_id"
+      - "status"
+    properties:
+      certificate_id:
+        type: string
+      status:
+        type: "string"
+
+  postSecuritiesExchangePrice:
+    type: object
+    required:
+      - "company_id"
+      - "koresecurities_id"
+      - "quote_provider_id"
+      - "exchange_price"
+      - "exchange_unit"
+      - "exchange_unit_type"
+      - "quote_date"
+    properties:
+      company_id:
+        type: "string"
+      koresecurities_id:
+        type: "string"
+      quote_provider_id:
+        type: "string"
+      exchange_price:
+        type: "number"
+      exchange_unit:
+        type: "string"
+      exchange_unit_type:
+        type: "string"
+      quote_date:
+        type: "string"
+        example: "YYYY-MM-DD"

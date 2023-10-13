@@ -1,0 +1,54 @@
+openapi: 3.0.0
+definitions:
+  postServiceProvider:
+    type: object
+    required:
+      - source_system_id
+      - service_name
+      - legal_name
+      - country
+      - status
+    properties:
+      status:
+        type: number
+      source_system_id:
+        type: string
+      registration_number:
+        type: string
+      registration_authority:
+        type: string
+      legal_name:
+        type: string
+        minimum: 3
+        maximum: 100
+      country:
+        type: string
+        minimum: 2
+        maximum: 2
+      service_name:
+        type: string
+
+  getServiceProviderByID:
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        type: string
+
+  putAssociateServiceProviderWithCompany:
+    type: object
+    required:
+      - company_id
+      - data
+      - association_date
+    properties:
+      company_id:
+        type: string
+      data:
+        type: array
+        items:
+          type: string
+      association_date:
+        type: string
+        example: "YYYY-MM-DD"

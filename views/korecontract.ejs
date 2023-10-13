@@ -1,0 +1,271 @@
+<% include ./layouts/header %>
+<style>
+    li {
+        border: 1px solid;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="container">
+    <h2 class="text-center">Share Holder Agreement</h2>
+    <br>
+    <form class="form-horizontal" action="#" method="post" id="contractForm">
+        <div class="form-group">
+            <label>Title:</label>
+            <input type="text" class="form-control" id="title" placeholder="Title" name="title">
+        </div>
+        <div class="form-group">
+            <label>Preamble Text:</label>
+            <input type="text" class="form-control" id="preamble_text" placeholder="Preamble Text" name="preamble_text">
+        </div>
+        <div class="form-group">
+            <div class="pull-right">
+                <button type="button" class="btn btn-primary" id="addClauseBtn">Add Clause</button>
+            </div>
+        </div>
+        <ol class="" id="addClauseList"></ol>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success" id="submitForm">Submit</button>
+        </div>
+    </form>
+</div>
+
+<% include ./layouts/footer %>
+
+<script type="text/template" id="clasueReferenceHTML">
+    <div class="form-group" data-id="#index#">
+        <label>Clause References:</label>
+        <div class="row">
+            <div class="col-sm-8">
+                <input type="number" class="form-control" placeholder="Clause References" name="data#brackets#">
+            </div>
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-danger removeClausereference">Remove</button>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="clauseDataHTML">
+    <div class="variableDataDiv" data-id="#index#">
+        <div class="form-group">
+            <label>Variable name:</label>
+            <div class="row">
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="Variable name" name="data#bracketsName#">
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-danger remvoeVariableData">Remove</button>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Variable Value:</label>
+            <input type="text" class="form-control" placeholder="Variable value" name="data#bracketsValue#">
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="addClauseHTML">
+    <li class="clauseLi" data-id="#index#">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <button type="button" class="btn btn-primary addClauseReference">+ Clause References</button>
+                <button type="button" class="btn btn-primary addChildClasue">Add Child Clause</button>
+                <button type="button" class="btn btn-primary addVariableData">Add Data</button>
+                <button type="button" class="btn btn-danger removeClauseBtn">Remove</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Clause Title:</label>
+            <input type="text" class="form-control" placeholder="Clause Title"
+                name="data#brackets#[title]">
+        </div>
+        <div class="form-group">
+            <label>Clause Text:</label>
+            <input type="text" class="form-control" placeholder="Clause Text"
+                name="data#brackets#[text]">
+        </div>
+        <div class="clauseReferenceList"></div>
+        <div class="addVariableDataList"></div>
+        <ol class="childClauseList"></ol>
+    </li>
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // add more clause
+        $(document).on('click', '#addClauseBtn', function (e) {
+            e.preventDefault();
+            // add the html
+            let html = $('#addClauseHTML').html();
+            // get the childerens of the list
+            let childrens = $('#addClauseList').children();
+            let index = 0;
+
+            if (childrens.length) {
+                index = Number.parseInt($('#addClauseList').children().last().attr('data-id')) + 1;
+            }
+            html = html.replace(new RegExp("#brackets#", 'g'), "[d" + index + "]");
+            html = html.replace('#index#', index);
+            $('#addClauseList').append(html);
+        });
+
+        // remove the clause
+        $(document).on('click', '.removeClauseBtn', function (e) {
+            e.preventDefault();
+            $(this).parent().parent().parent().remove();
+        });
+
+        // add more clause
+        $(document).on('click', '.addChildClasue', function (e) {
+            e.preventDefault();
+
+            // get the parents of this button and create the brackets in that order
+            let parents = $(this).parents('li.clauseLi');
+            let brackets = '';
+            let totalParents = parents.length;
+
+            if (totalParents == 4) {
+                show_FlashMessage("You can not add more child clauses.", "error");
+                return;
+            }
+
+            for (let i = totalParents - 1; i >= 0; i--) {
+                let element = $(parents[i]);
+                brackets += `[d` + Number.parseInt(element.attr('data-id')) + `][childs]`;
+            }
+
+            let parent = $($(this).parent().parent().siblings('.childClauseList')[0]);
+            let childrens = parent.children();
+            let index = 0;
+
+            if (childrens.length) {
+                index = Number.parseInt(childrens.last().attr('data-id')) + 1;
+            }
+
+            // add the html
+            let html = $('#addClauseHTML').html();
+            brackets += "[d" + index + "]";
+            html = html.replace(new RegExp("#brackets#", 'g'), brackets);
+            html = html.replace('#index#', index);
+            $(this).parent().parent().siblings('.childClauseList').append(html);
+        });
+
+        // add the clause reference
+        $(document).on('click', '.addClauseReference', function (e) {
+            e.preventDefault();
+            let html = $('#clasueReferenceHTML').html();
+            // get the parents of this button and create the brackets in that order
+            let parents = $(this).parents('li.clauseLi');
+            let brackets = '';
+            let totalParents = parents.length;
+
+            for (let i = totalParents - 1; i >= 0; i--) {
+                let element = $(parents[i]);
+                if (i == 0) {
+                    brackets += `[d` + Number.parseInt(element.attr('data-id')) + `]`;
+                } else {
+                    brackets += `[d` + Number.parseInt(element.attr('data-id')) + `][childs]`;
+                }
+            }
+
+            let parent = $($(this).parent().parent().siblings('.clauseReferenceList')[0]);
+            let childrens = parent.children();
+            let index = 0;
+
+            if (childrens.length) {
+                index = Number.parseInt(childrens.last().attr('data-id')) + 1;
+            }
+
+            // add the html
+            brackets += "[references][" + index + "]";
+            html = html.replace(new RegExp("#brackets#", 'g'), brackets);
+            html = html.replace('#index#', index);
+            $(this).parent().parent().siblings('.clauseReferenceList').append(html);
+        });
+
+        // add the variable divs
+        $(document).on('click', '.addVariableData', function (e) {
+            e.preventDefault();
+            // get the parents of this button and create the brackets in that order
+            let parents = $(this).parents('li.clauseLi');
+            let brackets = '';
+            let totalParents = parents.length;
+
+            for (let i = totalParents - 1; i >= 0; i--) {
+                let element = $(parents[i]);
+                if (i == 0) {
+                    brackets += `[d` + Number.parseInt(element.attr('data-id')) + `]`;
+                } else {
+                    brackets += `[d` + Number.parseInt(element.attr('data-id')) + `][childs]`;
+                }
+            }
+
+            let parent = $($(this).parent().parent().siblings('.addVariableDataList')[0]);
+            let childrens = parent.children();
+            let index = 0;
+
+            if (childrens.length) {
+                index = Number.parseInt(childrens.last().attr('data-id')) + 1;
+            }
+
+            // add the html
+            let brackets_name = brackets + "[data][index" + index + "][name]";
+            let brackets_value = brackets + "[data][index" + index + "][value]";
+            let html = $('#clauseDataHTML').html();
+            html = html.replace(new RegExp("#bracketsName#", 'g'), brackets_name);
+            html = html.replace(new RegExp("#bracketsValue#", 'g'), brackets_value);
+            html = html.replace('#index#', index);
+            $(this).parent().parent().siblings('.addVariableDataList').append(html);
+        });
+
+        // remove the clause referecne
+        $(document).on('click', '.removeClausereference', function (e) {
+            e.preventDefault();
+            $(this).parent().parent().parent().remove();
+        });
+
+        // remvoe the variable div
+        $(document).on('click', '.remvoeVariableData', function (e) {
+            e.preventDefault();
+            $(this).parent().parent().parent().parent().remove();
+        });
+
+        $(document).on('click', '#submitForm', function (e) {
+            e.preventDefault();
+            startLoader();
+            $.ajax({
+                url: $('#contractForm').attr('action'),
+                method: 'post',
+                data: $('#contractForm').serialize(),
+                success: function (data) {
+                    show_FlashMessage("Form has been submitted successfully!");
+                    stopLoader();
+                },
+                error: function (error) {
+                    if (error.status == 0 || error.readyState == 0) {
+                        return;
+                    }
+                    if (error.status == 422) {
+                        errors = error.responseJSON;
+                        $.each(errors, function (key, value) {
+                            $('.' + key).find('span.errors').addClass('text-danger').html(value[0]).show();
+                        });
+                    } else if (error.status == 400) {
+                        errors = error.responseJSON;
+                        if (errors.hasOwnProperty('message')) {
+                            show_FlashMessage(errors.message, 'error');
+                        } else {
+                            show_FlashMessage('Something went wrong!', 'error');
+                        }
+                    } else {
+                        show_FlashMessage('Something went wrong!', 'error');
+                    }
+                    stopLoader();
+                }
+            });
+        });
+    });
+</script>
